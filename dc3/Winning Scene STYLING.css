@@ -1,0 +1,72 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 960px;
+    height: 540px;
+    background: url('canva designs/island.jpg') no-repeat top left;
+    background-size: cover;
+    font-family: "Caveat Brush", serif;
+    overflow: hidden;
+} 
+
+
+/* Text Styling */
+.text-container {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: black;
+}
+
+h1 {
+    font-family: "Caveat Brush", serif;
+    position: absolute;
+    top: 5%;
+    left:13%;
+    font-size: 90px;
+}
+
+h2 {
+    font-family: "Pangolin", serif;
+    font-style: normal;
+    white-space: normal;
+    position: absolute;
+    top: 30%;
+    left:32%;
+    font-size: 45px;
+}
+
+#sailagain{
+    position: absolute;
+    bottom: 2%;
+    right:1%;
+    font-family: "Caveat Brush", serif;
+    padding: 10px 15px;
+    font-size: 1.3em;
+    cursor: pointer;
+    color: blanchedalmond;
+    background-color:#7d1335;
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+#fadeLayer{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white; /* Black screen fade */
+    z-index: 1000;
+    display: none;
+    pointer-events: none;
+    animation: fadeIn 1s ease-in-out reverse;
+}

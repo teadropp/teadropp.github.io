@@ -1,0 +1,176 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 960px;
+    height: 540px;
+    background: url('canva designs/landing page bg.png') no-repeat top left;
+    background-size: cover;
+    font-family: 'CustomFont', sans-serif;
+    overflow: hidden;
+}
+
+#intro-scene {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+#startmenu {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: url('canva designs/START\ page\ bg.png') no-repeat top left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+#title{
+    animation: fadeIn 1s 1 ease-in;
+    width: 700px;
+    height: 300px;
+    position: absolute;
+    align-self:flex-start;
+    padding: 50px;
+}
+
+#startbutton{
+    background: url('canva designs/start button.png') no-repeat top left;
+    background-size: contain;
+    height:120px;
+    width:266px;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 72%;
+    left: 39%;
+    filter: drop-shadow(5px 5px 9px rgba(255, 255, 255, 0.5)); /* PNG drop shadow */
+}
+
+#startbutton:hover{
+    transform: scale(1.2);
+}
+
+
+.character {
+    position: absolute;
+    bottom: 10%;
+    left: 20px; /* Move character left */
+    transform: rotate(-90deg) translateY(-150px); /* Adjust position after rotation */
+    height: 300px;
+}
+
+.dialogue-box {
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    width: 100%;
+    height: 250px;
+    background: url('canva designs/text box.png') no-repeat center/contain;
+    background-size: 100% 100%;
+    padding: 30px 40px;
+    font-size: 1.5em;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.character-name {
+    font-weight: bold;
+    font-family: "Caveat Brush", serif;
+    font-size: 40px;
+    color: black;
+    text-align:center;
+    position: absolute;
+    bottom: 120px;
+    left: 65px;
+}
+
+.dialogue-text {
+    font-family: "Pangolin", serif;
+    font-style: normal;
+    white-space: normal;
+    word-break: break-word;
+    max-width: 75%;
+    overflow-wrap: break-word;
+    line-height: 1.2;
+    height: 120px; /* Fixed height */
+    box-sizing: border-box;
+    padding: 10px;
+    position: absolute;
+    bottom: 10px;
+    left: 65px;
+    padding-bottom: 10px;
+}
+
+.textbutton {
+    font-family: "Caveat Brush", serif;
+    position: absolute;
+    padding: 10px 15px;
+    font-size: 1em;
+    cursor: pointer;
+    color: blanchedalmond;
+    background-color:#7d1335;
+    border: none;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+#next-button {
+    font-family: "Caveat Brush", serif;
+    position: absolute;
+    bottom: 33px;
+    right: 150px;
+    display: none;
+}
+
+#yesbutton{
+    font-family: "Caveat Brush", serif;
+    bottom: 40px;
+    right: 270px;
+    display: none;
+}
+#nobutton{
+    font-family: "Caveat Brush", serif;
+    bottom: 40px;
+    right: 180px;
+    display: none;
+}
+
+#finalbutton{
+    font-family: "Caveat Brush", serif;
+    bottom: 30px;
+    right: 180px;
+    display: none;
+}
+
+.next-button:hover {
+    background-color: #e0a030;
+}
+
+@font-face {
+    font-family: 'CustomFont';
+    src: url('fonts/CustomFont.woff2') format('woff2');
+}
+
+/* Fading Effect */
+.fade-black {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white; /* Black screen fade */
+    z-index: 1000;
+    display: none;
+    pointer-events: none;
+    animation: fadeIn 1s ease-in-out;
+}

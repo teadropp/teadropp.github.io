@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"></html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=960, height=540">
+    <title>Aye Aye CaptAIn! - YOU WON!</title>
+    <link rel="stylesheet" href="Winning Scene STYLING.css">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="endscene">
+        <img src="canva designs/treasure chest.png" id="treasurechest">
+        <div>
+            <h1 id="header">YOU DID IT, CAPTAIN!</h1>
+            <h2 id="subtext">Enjoy your bounty</h2>
+            <button id="sailagain" onclick="fadeToNextPage('introduction of storyline.html')">SAIL AGAIN</button>
+        </div>
+
+        <img src="canva designs/island.jpg" id='end'>
+
+        <!-- Typing Text -->
+        <div class="textcontainer">
+            <h1 id="maintext"></h1>
+            <p id="subtext"></p>
+        </div>
+    </div>
+
+    <audio id="beachsfx" loop>
+        <source src="beachENDSFX.mp3" type="audio/mp3">
+    </audio>
+
+    <div id="fadeLayer"></div>
+    <script>
+       function fadeToNextPage(targetPage) {
+         window.location.href = targetPage;
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            document.getElementById('fadeLayer').style.display = 'block';
+            setTimeout(() => document.getElementById('fadeLayer').style.display = 'none', 1000);
+            let bgMusic = document.getElementById("beachsfx");
+
+        // Attempt to play the audio when the page loads
+        bgMusic.volume = 0.7; // Set initial volume
+        bgMusic.play().catch(error => {
+            console.log("Autoplay blocked, waiting for user interaction...");
+            });
+        });
+
+        window.addEventListener("click", () => {
+            let bgMusic = document.getElementById("beachsfx");
+        bgMusic.play();
+        }, { once: true }); // Ensures it only runs once
+    </script>
+</body>
+</html>

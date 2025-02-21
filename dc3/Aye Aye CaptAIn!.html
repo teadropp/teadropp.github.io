@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=960, height=540" />
+  <title>Gen AI Quiz Game</title>
+    <link href="Styling.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
+
+   </head>
+<body>
+  <div class="container">
+    <div class="map">
+      <p id="question">EATEN BY SHARKS</p>
+    </div>
+    <div class='fishbox' id="fishabox" onclick="checkAnswer('A')">
+      <img src="canva designs/fish a.png" alt="Fish A" class='fish' id="fisha"/>
+      <div class="answer" id="optionA">INSPIRING IDEAS</div>
+    </div>
+    <div class='fishbox' id="fishbbox" onclick="checkAnswer('B')">
+      <img src="canva designs/fish b.png" alt="Fish B" class='fish' id="fishb"/>
+      <div class="answer" id="optionB">PROVIDING ACCURATE INFORMATION</div>
+    </div>
+    <div class='fishbox' id="fishcbox" onclick="checkAnswer('C')">
+      <img src="canva designs/fish c.png" alt="Fish C" class='fish' id="fishc"/>
+      <div class="answer" id="optionC">WRITING FROM THE HEART</div>
+    </div>
+    <img src="canva designs/steering wheel.png" id="wheel">
+  </div>
+
+  <img src="canva designs/teef.png" id="damage">
+
+  <audio id="damagesfx">
+    <source src="biteDAMAGESFX.mp3" type="audio/mp3">
+  </audio>
+
+  <audio id="introsfx" loop>
+    <source src="wavesINTROSFX.mp3" type="audio/mp3">
+  </audio>
+
+  <audio id="gamesfx" loop>
+    <source src="musicGAMESFX.mp3" type="audio/mp3">
+    <source src="sailingGAMESFX.mp3" type="audio/mp3">
+  </audio>
+
+  <div id="fadeLayer"></div>
+  <script>
+    let questions = [
+      'What is Gen AI useful for?',
+      'Which is an example \nof Gen AI?',
+      'How can you improve the \nquality of Gen AI answers?',
+      'What should you do with \nanswers from Gen AI?',
+      'Gen AI learns from ___.',
+      ''
+    ];
+
+    let answers = [
+      ['A','INSPIRING IDEAS','PROVIDING ACCURATE INFORMATION','WRITING FROM THE HEART'],
+      ['B','MICROSOFT EXCEL','DALL.E','GOOGLE MAPS'],
+      ['B','GIVE \nCONTRADICTING \nINSTRUCTIONS','PROVIDE CONTEXT','REPEAT THE SAME QUESTION'],
+      ['C','IGNORE MISTAKES','COPY AND PASTE VERBATIM','FACT CHECK'],
+      ['B','RANDOM GUESSES','DATA AND PATTERNS','HUMAN EMOTIONS']
+    ];
+
+    let currentqn = 0;
+
+    function updatetxt() {
+      document.getElementById('question').innerText = questions[currentqn];
+      document.getElementById('optionA').innerText = answers[currentqn][1];
+      document.getElementById('optionB').innerText = answers[currentqn][2];
+      document.getElementById('optionC').innerText = answers[currentqn][3];
+      document.getElementById("question").style.display = "none";
+        setTimeout(function(){
+          document.getElementById("question").style.display = "block";
+        }, 1);
+    }
+    
+    updatetxt();
+
+    function checkAnswer(selected) {
+      if (answers[currentqn][0] === selected){
+        currentqn += 1
+        if (currentqn === 5){
+          document.body.style.transition = "opacity 1s";
+            document.body.style.opacity = 0;
+            setTimeout(() => {
+                window.location.href = "Winning Scene.html";
+            }, 1000); // Matches transition duration        
+          }else{
+          //alert('correct'); //correct ans trigger
+        }
+        updatetxt();
+      }else{ //wrong answer play animation
+        //put sfx here!
+        const wrongAudio = document.getElementById("damagesfx");
+        wrongAudio.play();
+
+        document.getElementById("damage").style.display = "block";
+        setTimeout(function(){
+          document.getElementById("damage").style.display = "none";
+        }, 1000);
+      }
+    }
+
+    const b = document.getElementById('wheel');//makes wheel rotate to follow cursor
+
+			document.addEventListener('mousemove', (e) => {
+				const mouseX = e.pageX;
+				const mouseY = e.pageY;
+
+				// Get the center of the wheel
+				const wheelinfo = wheel.getBoundingClientRect();
+				const wheelX = wheelinfo.left + wheelinfo.width / 2;
+				const wheelY = wheelinfo.top + wheelinfo.height / 2;
+
+				// Calculate the angle between the wheel and the mouse cursor
+				const deltaX = mouseX - wheelX;
+				const deltaY = mouseY - wheelY;
+				const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI); // Convert radian to degrees
+
+				// Apply the rotation to the wheel
+				wheel.style.transform = 'rotate(' + angle + 'deg)';
+			});
+
+
+      window.onload = function() {
+        let bgMusic = document.getElementById("gamesfx"); // Use game music instead
+        let savedTime = sessionStorage.getItem("musicTime");
+
+      if (savedTime) {
+        bgMusic.currentTime = parseFloat(savedTime); // Resume from saved time
+      }
+
+      bgMusic.volume = 0; // Start muted
+      bgMusic.play();
+
+    // Smooth fade-in effect
+    let fadeInterval = setInterval(() => {
+        if (bgMusic.volume < 1) {
+            bgMusic.volume += 0.05; // Increase volume gradually
+        } else {
+            clearInterval(fadeInterval);
+        }
+    }, 200); // Adjust fade-in speed
+    };
+
+      //document.body.style.opacity = 0;
+      window.addEventListener("DOMContentLoaded", () => {
+        document.getElementById('fadeLayer').style.display = 'block';
+        setTimeout(() => document.getElementById('fadeLayer').style.display = 'none', 1000);
+        setTimeout(() => document.getElementsByClassName('map')[0].style.opacity = '1', 1000);
+      });
+
+ </script>
+</body>
+</html>

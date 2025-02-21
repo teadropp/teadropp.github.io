@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=960, height=540">
+        <title>Generative AI Game - Intro Scene</title>
+        <link rel="stylesheet" href="introduction of storyline STYLING.css">
+
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
+    </head>
+    <body>
+    
+    
+        <!--Intro Scene-->
+        <div id="intro-scene">
+            <img src="canva designs/Sailor-worried.png" alt="Sailor George" class="character">
+            <div class="dialogue-box">
+                <h2 class="character-name">Sailor George</h2>
+                <p class="dialogue-text" id="dialogue-text"></p>
+                <button class='textbutton' id="next-button" onclick="nextDialogue()">Next</button>
+                <button class='textbutton' id="yesbutton" onclick="yespressed()">Aye Aye!</button>
+                <button class='textbutton' id="nobutton" onclick="nopressed()">Nay...</button>
+                <button class="textbutton" id="finalbutton" onclick="fadeToNextPage('Aye Aye CaptAIn!.html')">Full sail!</button>
+
+            </div>
+        </div>
+     
+        <audio id="knockingsfx">
+            <source src="knockingSFX.mp3" type="audio/mp3">
+        </audio>
+
+        <audio id="introsfx" loop>
+            <source src="wavesINTROSFX.mp3" type="audio/mp3">
+        </audio>
+
+        <div id='startmenu'>
+            <button id="startbutton" onclick='startgame()'></button>
+            <img src="canva designs/title card.png" id='title'>
+        </div>
+
+        <div class="fade-black" id="fadeLayer"></div>
+
+
+        <script>
+            function fadeToNextPage(targetPage) {
+                document.getElementById("fadeLayer").style.display = 'block';
+
+            // Wait for the fade-out effect before redirecting
+                setTimeout(() => {
+                    window.location.href = targetPage;
+                }, 1000); // Adjust duration to match CSS transition
+            }
+
+            let bgMusic=document.getElementById("introsfx")
+
+            // Start music on load if not already playing
+            window.onload = function() {
+                if (!sessionStorage.getItem("musicPlaying")) {
+                    bgMusic.play();
+                    sessionStorage.setItem("musicPlaying", "true");
+                }
+             };
+
+            const dialogueLines = [
+                "Captain! We are in dire need of your help!",
+                "Treasure Island is only 7 nautical miles due North, our men can see it through their telescopes!",
+                "However, we are rapidly approaching shark infested waters, and our Helmsman is getting shakier by the second.",
+                "Captain, can you help us navigate through this patch?"
+            ];
+    
+            let currentLine = 0;
+            let textdone = 1;
+            const dialogueText = document.getElementById('dialogue-text');    
+
+            function startgame(){
+                document.getElementById('startmenu').style.animation = 'fadeIn 1s ease-in 1 reverse';
+                document.getElementById('intro-scene').style.animation = 'fadeIn 1s ease-in 1';
+                setTimeout(() => document.getElementById('startmenu').style.display = 'none', 990);
+                setTimeout(() => document.getElementById('intro-scene').style.display = 'block', 1000);
+                textdone = 0;
+                setTimeout(() => typeText(dialogueLines[currentLine]), 2000);
+                setTimeout(() => document.getElementById('next-button').style.display = 'block', 2000);
+                setTimeout(() => currentLine++, 2010);
+
+                //Play knocking sound on click
+                const knockingAudio = document.getElementById('knockingsfx');
+                    knockingAudio.play();
+
+                // After 3 seconds, play seagulls sound
+                setTimeout(() => {
+                const seagullsAudio = document.getElementById('introsfx');
+                seagullsAudio.play();
+                }, 3000);
+            }
+    
+            
+            function typeText(text, index = 0) {
+                if (index < text.length) {
+                    textdone = 0;
+                    dialogueText.textContent += text.charAt(index);
+                    setTimeout(() => typeText(text, index + 1), 20); //text scrollspeed here
+                }else{textdone = 1;}
+            }
+    
+            function nextDialogue() {
+                if (currentLine < dialogueLines.length && textdone == 1) {
+                    //if the current line of dialogue isnt the last one and the text is done scrolling
+                    dialogueText.textContent = "";
+                    //sfxNext.play();
+                    typeText(dialogueLines[currentLine]);
+                    currentLine++;
+                }
+                if (currentLine === dialogueLines.length){ //if the current line of dialogue is the last one
+                    document.getElementById('next-button').style.display = 'none';
+                    document.getElementById('yesbutton').style.display = 'block';
+                    document.getElementById('nobutton').style.display = 'block';
+
+                }
+            }
+
+            function yespressed(){
+                if (textdone == 1){
+                    document.getElementsByClassName('character')[0].src="canva designs/Sailor happy.png";
+                    document.getElementById('yesbutton').style.display = 'none';
+                    document.getElementById('nobutton').style.display = 'none';
+                    dialogueText.textContent = "";
+                    typeText('I knew I could count on you, Captain! We just need to avoid the sharks, my men say that there’s a migrating pod of dolphins that can guide us! Simply follow their lead, and we should be in the clear!');
+                    //INCLUDE DELAY then redirect to next webpage
+                    document.getElementById('finalbutton').style.display = 'block'
+
+                }
+
+            }
+
+            function nopressed(){
+                if (textdone == 1){
+                    document.getElementById('nobutton').style.display = 'none';
+                    dialogueText.textContent = "";
+                    typeText('Your men need you, Captain! Can you take to the helm and steer the SS IMDA towards our treasure?');
+                }
+            }
+        
+            
+        </script>
+
+    </body>
+    </html>
+    
+
+</html>
